@@ -1,0 +1,43 @@
+.count {
+  padding: 70px 0 60px;
+
+  &__box {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+    width: 100%;
+    background: $white;
+    box-shadow: 0 0 30px rgba(1, 41, 112, 0.08);
+
+    &::before {
+      content: "\f118";
+      position: absolute;
+      left: 40px;
+      display: inline-block;
+      padding-right: 40px;
+      vertical-align: middle;
+      font-weight: 900;
+      font-family: "Font Awesome 5 Free";
+      color: $btnblue;
+
+      @include fontSize(42);
+    }
+
+    span {
+      display: block;
+      font-weight: 600;
+      color: $darkblue;
+      padding-left: 60px;
+
+      @include fontSize(36);
+    }
+
+    p {
+      padding: 0;
+      margin: 0 0 0 60px;
+      font-family: $secondaryfont;
+
+      @include fontSize(14);
+    }
+  }
+}

@@ -1,0 +1,140 @@
+.blog__sidebar {
+  padding: 30px;
+  margin: 0 0 60px 20px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+
+  &-title {
+    font-weight: 700;
+    padding: 0;
+    margin: 0 0 15px;
+    color: $primarycolor;
+    position: relative;
+
+    @include fontSize(20);
+  }
+
+  &-item {
+    margin-bottom: 30px;
+  }
+
+  form {
+    background: $white;
+    border: 1px solid $borderinput;
+    padding: 1px 0;
+    position: relative;
+
+    input[type="text"] {
+      border: 0;
+      padding: 4px;
+      border-radius: 4px;
+      width: calc(100% - 40px);
+    }
+
+    input[type="submit"] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      border: 0;
+      padding: 0 15px;
+      margin: -1px;
+      background: $btnblue;
+      color: $white;
+      transition: 0.3s;
+      border-radius: 0 4px 4px 0;
+      line-height: 0;
+
+      @include fontSize(16);
+
+      &:hover {
+        background: $btnhover;
+      }
+    }
+  }
+
+  &-categories {
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        padding-top: 10px;
+        color: $lightgrey;
+
+        @include fontSize(14);
+
+        a {
+          color: $primarycolor;
+          transition: 0.3s;
+
+          &:hover {
+            color: $linkhover;
+          }
+        }
+      }
+    }
+  }
+
+  &-recent-posts {
+    h4 {
+      font-weight: 600;
+
+      @include fontSize(15);
+
+      a {
+        color: $primarycolor;
+        transition: 0.3s;
+
+        &:hover {
+          color: $linkhover;
+        }
+      }
+    }
+
+    .blog__post-item + .blog__post-item {
+      margin-top: 15px;
+    }
+
+    img {
+      width: 80px;
+      object-fit: cover;
+    }
+
+    span {
+      color: $lightgrey;
+
+      @include fontSize(14);
+    }
+  }
+
+  &-tags {
+    margin-bottom: -10px;
+
+    ul {
+      list-style: none;
+      padding: 0;
+
+      li {
+        display: inline-block;
+
+        a {
+          color: $lightblue;
+          font-size: 14px;
+          padding: 6px 14px;
+          margin: 0 6px 8px 0;
+          border: 1px solid $borderinput;
+          display: inline-block;
+          transition: 0.3s;
+
+          @include fontSize(14);
+
+          &:hover {
+            color: $white;
+            border: 1px solid $btnblue;
+            background: $btnblue;
+          }
+        }
+      }
+    }
+  }
+}

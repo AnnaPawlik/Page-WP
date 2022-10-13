@@ -1,0 +1,25 @@
+.about {
+  &__content {
+    background-color: $bgfooter;
+    padding: 40px;
+
+    h3 {
+      color: $btnblue;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+
+      @include fontSize(24);
+    }
+
+    p {
+      margin: 15px 0 30px;
+
+      @include fontSize(16);
+    }
+  }
+}

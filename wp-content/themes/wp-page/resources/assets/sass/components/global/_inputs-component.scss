@@ -1,0 +1,79 @@
+.footer {
+  input[type="email"] {
+    border: 0;
+    padding: 8px;
+    width: calc(100% - 140px);
+  }
+
+  input[type="submit"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    border: 0;
+    padding: 0 30px;
+    margin: 3px;
+    background: $btnblue;
+    color: $white;
+    transition: 0.3s;
+    border-radius: 4px;
+
+    @include fontSize(16);
+
+    &:hover {
+      background: $btnhover;
+    }
+  }
+}
+
+.contact {
+  textarea {
+    padding: 12px 15px;
+  }
+
+  input[type="submit"] {
+    background: $btnblue;
+    border: 0;
+    padding: 10px 30px;
+    color: $white;
+    transition: 0.4s;
+    border-radius: 4px;
+    max-width: 166px;
+    text-align: center;
+    margin-bottom: 15px;
+
+    &:hover {
+      background: $btnhover;
+    }
+  }
+
+  input,
+  textarea {
+    border-radius: 0;
+    box-shadow: none;
+    appearance: none;
+    outline: none;
+    -webkit-appearance: none;
+    border: 1px solid $borderinput;
+    width: 100%;
+
+    @include fontSize(16);
+
+    &:focus {
+      border-color: $btnhover;
+    }
+  }
+
+  input {
+    padding: 10px 15px;
+  }
+
+  label {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  ::placeholder {
+    @include fontSize(16);
+  }
+}

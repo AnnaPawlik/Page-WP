@@ -1,0 +1,28 @@
+/*
+Theme Name: wppage
+Author: Free Template
+Author URI: 
+Description: Template for wppage
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: 
+
+*/
+
+
+img[class*="wp-image-"] {
+    max-width: 100%;
+    height: auto;
+}
+
+#wpadminbar .quicklinks>ul>li>a {
+	line-height: 30px !important;
+}
+
+#wpadminbar .quicklinks a,
+#wpadminbar .quicklinks .ab-label,
+#wpadminbar .quicklinks .display-name {
+	font-size: 14px !important;
+		line-height: 30px !important;
+}

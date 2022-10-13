@@ -1,0 +1,36 @@
+.btn-get-started {
+  margin-top: 30px;
+  line-height: 0;
+  padding: 15px 40px;
+  border-radius: 4px;
+  transition: 0.5s;
+  color: $white;
+  background: $btnblue;
+  box-shadow: 0 5px 30px rgba(65, 84, 241, 0.4);
+
+  span {
+    font-family: $secondaryfont;
+    font-weight: 600;
+    letter-spacing: 1px;
+
+    @include fontSize(16);
+  }
+
+  i {
+    margin-left: 5px;
+    transition: 0.3s;
+
+    @include fontSize(18);
+  }
+
+  &:hover {
+    i {
+      transform: translateX(5px);
+      color: $white;
+    }
+
+    span {
+      color: $white;
+    }
+  }
+}
