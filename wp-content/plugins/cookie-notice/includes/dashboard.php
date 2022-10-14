@@ -114,16 +114,16 @@ class Cookie_Notice_Dashboard {
 			$analytics = get_option( 'cookie_notice_app_analytics' );
 
 		// styles
-		wp_enqueue_style( 'cn-admin-dashboard', plugins_url( '../css/admin-dashboard.css', __FILE__ ), [], $cn->defaults['version'] );
-		wp_enqueue_style( 'cn-microtip', plugins_url( '../assets/microtip/microtip.min.css', __FILE__ ), [], $cn->defaults['version'] );
+		wp_enqueue_style( 'cn-admin-dashboard', COOKIE_NOTICE_URL . '/css/admin-dashboard.css', [], $cn->defaults['version'] );
+		wp_enqueue_style( 'cn-microtip', COOKIE_NOTICE_URL . '/assets/microtip/microtip.min.css', [], $cn->defaults['version'] );
 
 		// bail if compliance is not active
 		if ( $cn->get_status() !== 'active' )
 			return;
 
 		// scripts
-		wp_enqueue_script( 'cn-admin-chartjs', plugins_url( '../assets/chartjs/chart.min.js', __FILE__ ), [ 'jquery' ], $cn->defaults['version'], true );
-		wp_enqueue_script( 'cn-admin-dashboard', plugins_url( '../js/admin-dashboard.js', __FILE__ ), [ 'jquery', 'cn-admin-chartjs' ], $cn->defaults['version'], true );
+		wp_enqueue_script( 'cn-admin-chartjs', COOKIE_NOTICE_URL . '/assets/chartjs/chart.min.js', [ 'jquery' ], $cn->defaults['version'], true );
+		wp_enqueue_script( 'cn-admin-dashboard', COOKIE_NOTICE_URL . '/js/admin-dashboard.js', [ 'jquery', 'cn-admin-chartjs' ], $cn->defaults['version'], true );
 
 		// cycle usage data
 		$cycle_usage = [
@@ -308,7 +308,7 @@ class Cookie_Notice_Dashboard {
 		} else {
 			$html .= '
 			<div id="cn-dashboard-accordion" class="cn-accordion cn-widget-block">
-				<img src="' . plugins_url( '../img/cookie-compliance-widget.png', __FILE__ ) . '" alt="Cookie Compliance widget" />
+				<img src="' . COOKIE_NOTICE_URL . '/img/cookie-compliance-widget.png" alt="Cookie Compliance widget" />
 				<div id="cn-dashboard-upgrade">
 					<div id="cn-dashboard-modal">
 						<h2>' . __( 'View consent activity inside WordPress Dashboard', 'cookie-notice' ) . '</h2>
@@ -502,20 +502,15 @@ class Cookie_Notice_Dashboard {
 	 */
 	public function test_cookie_compliance() {
 		if ( Cookie_Notice()->get_status() !== 'active' ) {
-			$setup_link = add_query_arg( [
-				'page'		=> 'cookie-notice',
-				'welcome'	=> 1
-			], admin_url( 'admin.php' ) );
-
 			return [
 				'label'			=> __( 'Your site does not have Cookie Compliance', 'cookie-notice' ),
-				'status'		=> 'critical',
+				'status'		=> 'recommended',
 				'badge'			=> [
 					'label'	=> __( 'Cookie Notice', 'cookie-notice' ),
 					'color'	=> 'blue'
 				],
 				'description'	=> __( "Run Compliance Check to determine your site's compliance with updated data processing and consent rules under GDPR, CCPA and other international data privacy laws.", 'cookie-notice' ),
-				'actions'		=> sprintf( '<p><a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p>', $setup_link, __( 'Run Compliance Check', 'cookie-notice' ) ),
+				'actions'		=> sprintf( '<p><a href="%s" target="_blank" rel="noopener noreferrer">%s</a></p>', admin_url( 'admin.php?page=cookie-notice&welcome=1' ), __( 'Run Compliance Check', 'cookie-notice' ) ),
 				'test'			=> 'cookie_compliance_status'
 			];
 		}

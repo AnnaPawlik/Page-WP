@@ -231,8 +231,8 @@ class Cookie_Notice_Settings {
 								<div class="cn-lead">
 									<p>' . __( 'A free web application to help you deliver better consent experiences and comply with GDPR, CCPA and other data privacy laws more effectively.', 'cookie-notice' ) . '</p>
 								</div>
-								<img src="//cns2-53eb.kxcdn.com/screen-dashboard-small.png">
-								<a href="https://cookie-compliance.co/" class="button button-primary button-hero cn-button" target="_blank">' . __( 'Learn more', 'cookie-notice' ) . '</a>';
+								<img alt="' . __( 'Cookie Compliance dashboard', 'cookie-notice' ) . '" src="' . COOKIE_NOTICE_URL . '/img/screen-compliance.png">
+								<a href="https://cookie-compliance.co/?utm_campaign=learn+more&utm_source=wordpress&utm_medium=banner" class="button button-primary button-hero cn-button" target="_blank">' . __( 'Learn more', 'cookie-notice' ) . '</a>';
 		}
 
 		echo '
@@ -252,7 +252,7 @@ class Cookie_Notice_Settings {
 							</label>
 							<label for="cn-faq-2" class="cn-toggle-item">
 								<input id="cn-faq-2" type="checkbox" />
-								<span class="cn-toggle-heading">' . __( 'Does the Cookie Compiance integration make my site fully compliant with GDPR?', 'cookie-notice' ) . '</span>
+								<span class="cn-toggle-heading">' . __( 'Does the Cookie Compliance integration make my site fully compliant with GDPR?', 'cookie-notice' ) . '</span>
 								<span class="cn-toggle-body">' . __( 'Yes! The plugin + web application version includes technical compliance features to meet requirements for over 100 countries and legal jurisdictions.', 'cookie-notice' ) . '</span>
 							</label>
 							<label for="cn-faq-3" class="cn-toggle-item">
@@ -263,7 +263,7 @@ class Cookie_Notice_Settings {
 							<label for="cn-faq-4" class="cn-toggle-item">
 								<input id="cn-faq-4" type="checkbox" />
 								<span class="cn-toggle-heading">' . __( 'Where can I find pricing options?', 'cookie-notice' ) . '</span>
-								<span class="cn-toggle-body">' . __( 'You can learn more about the features and pricing by visiting the Cookie Compliance website here:', 'cookie-notice' ) . ' <a href="https://cookie-compliance.co/" target="_blank">https://cookie-compliance.co/</a></span>
+								<span class="cn-toggle-body">' . __( 'You can learn more about the features and pricing by visiting the Cookie Compliance website here:', 'cookie-notice' ) . ' <a href="https://cookie-compliance.co/?utm_campaign=pricing+options&utm_source=wordpress&utm_medium=textlink" target="_blank">https://cookie-compliance.co/</a></span>
 							</label>
 						</div>
 					</div>';
@@ -501,7 +501,7 @@ class Cookie_Notice_Settings {
 				</div>
 				<div id="cn_app_actions">
 					<a href="' . esc_url( $url ) . '" class="button button-primary button-hero cn-button cn-run-welcome">' . __( 'Add Compliance features', 'cookie-notice' ) . '</a>
-					<p class="description">' . __( 'Sign up to Cookie Compliance&trade; and add GDPR, CCPA and other international data privacy laws compliance features.', 'cookie-notice' ) . '</p>
+					<p class="description">' . sprintf( __( 'Sign up to <a href="%s" target="_blank">Cookie Compliance&trade;</a> and add GDPR, CCPA and other international data privacy laws compliance features.', 'cookie-notice' ), 'https://cookie-compliance.co/?utm_campaign=sign-up&utm_source=wordpress&utm_medium=textlink' ) . '</p>
 				</div>';
 				break;
 		}
@@ -1226,7 +1226,7 @@ class Cookie_Notice_Settings {
 			// get main instance
 			$cn = Cookie_Notice();
 
-			wp_enqueue_script( 'cookie-notice-admin', plugins_url( '../js/admin' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.js', __FILE__ ), [ 'jquery', 'wp-color-picker' ], $cn->defaults['version'] );
+			wp_enqueue_script( 'cookie-notice-admin', COOKIE_NOTICE_URL . '/js/admin' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.js', [ 'jquery', 'wp-color-picker' ], $cn->defaults['version'] );
 
 			wp_localize_script(
 				'cookie-notice-admin',
@@ -1242,7 +1242,7 @@ class Cookie_Notice_Settings {
 			wp_enqueue_style( 'wp-color-picker' );
 		}
 
-		wp_enqueue_style( 'cookie-notice-admin', plugins_url( '../css/admin' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.css', __FILE__ ) );
+		wp_enqueue_style( 'cookie-notice-admin', COOKIE_NOTICE_URL . '/css/admin' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.css' );
 	}
 
 	/**

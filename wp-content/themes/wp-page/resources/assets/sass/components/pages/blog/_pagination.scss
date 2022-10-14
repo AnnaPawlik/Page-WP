@@ -1,0 +1,21 @@
+.blog__pagination {
+  color: $lightblue;
+  text-align: center;
+
+  .pages {
+    display: none;
+  }
+
+  span,
+  a {
+    margin: 0 5px;
+    transition: 0.3s;
+    padding: 7px 16px;
+  }
+
+  .current {
+    background-color: $btnblue;
+    color: $white;
+    padding: 7px 16px;
+  }
+}

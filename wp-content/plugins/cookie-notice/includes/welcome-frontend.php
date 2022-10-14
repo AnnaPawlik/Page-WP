@@ -18,7 +18,7 @@ class Cookie_Notice_Welcome_Frontend {
 	 * @return void
 	 */
 	public function __construct() {
-		add_action( 'after_setup_theme', array( $this, 'preview_init' ), 1 );
+		add_action( 'after_setup_theme', [ $this, 'preview_init' ], 1 );
 	}
 
 	/**
@@ -36,12 +36,12 @@ class Cookie_Notice_Welcome_Frontend {
 			add_filter( 'cn_cookie_notice_output', '__return_false', 1000 );
 
 			// actions
-			add_action( 'wp_enqueue_scripts', array( $this, 'wp_dequeue_scripts' ) );
+			add_action( 'wp_enqueue_scripts', [ $this, 'wp_dequeue_scripts' ] );
 
 			// only in live preview
 			if ( $this->preview_mode === 1 ) {
-				add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_scripts' ) );
-				add_action( 'wp_head', array( $this, 'wp_head_scripts' ), 0 );
+				add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ] );
+				add_action( 'wp_head', [ $this, 'wp_head_scripts' ], 0 );
 			}
 		}
 	}
@@ -54,17 +54,17 @@ class Cookie_Notice_Welcome_Frontend {
 	public function wp_enqueue_scripts() {
 		// show only in live preview
 		if ( $this->preview_mode === 1 ) {
-			wp_enqueue_script( 'cookie-notice-welcome-frontend', plugins_url( '../js/front-welcome.js', __FILE__ ), array( 'jquery', 'underscore' ), Cookie_Notice()->defaults['version'] );
+			wp_enqueue_script( 'cookie-notice-welcome-frontend', COOKIE_NOTICE_URL . '/js/front-welcome.js', [ 'jquery', 'underscore' ], Cookie_Notice()->defaults['version'] );
 
 			wp_localize_script(
 				'cookie-notice-welcome-frontend',
 				'cnFrontWelcome',
-				array(
+				[
 					'previewMode'	=> $this->preview_mode,
 					'allowedURLs'	=> $this->get_allowed_urls(),
-					'levelNames' => Cookie_Notice()->settings->level_names,
-					'textStrings' => Cookie_Notice()->settings->text_strings
-				)
+					'levelNames'	=> Cookie_Notice()->settings->level_names,
+					'textStrings'	=> Cookie_Notice()->settings->text_strings
+				]
 			);
 		}
 	}
@@ -85,15 +85,15 @@ class Cookie_Notice_Welcome_Frontend {
 	 * @return void
 	 */
 	public function wp_head_scripts() {
-		$options = array(
+		$options = [
 			'currentLanguage'	=> 'en',
 			'previewMode'		=> true,
 			'debugMode'			=> true,
-			'config'			=> array(
+			'config'			=> [
 				'privacyPaper'		=> true,
 				'privacyContact'	=> true
-			)
-		);
+			]
+		];
 
 		echo '
 		<!-- Hu Banner -->
@@ -110,7 +110,7 @@ class Cookie_Notice_Welcome_Frontend {
 	 * @return array
 	 */
 	public function get_allowed_urls() {
-		$allowed_urls = array( home_url( '/' ) );
+		$allowed_urls = [ home_url( '/' ) ];
 
 		if ( is_ssl() && ! $this->is_cross_domain() )
 			$allowed_urls[] = home_url( '/', 'https' );

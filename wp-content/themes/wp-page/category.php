@@ -27,6 +27,7 @@
           <?php endwhile; ?>
 
           <div class="blog__pagination">
+            <?php wp_pagenavi(); ?>
           </div>
 
         </div><!-- End blog entries list -->

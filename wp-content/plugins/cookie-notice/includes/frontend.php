@@ -20,7 +20,7 @@ class Cookie_Notice_Frontend {
 	 */
 	public function __construct() {
 		// actions
-		add_action( 'init', array( $this, 'init' ) );
+		add_action( 'init', [ $this, 'init' ] );
 	}
 
 	/**
@@ -50,21 +50,70 @@ class Cookie_Notice_Frontend {
 		if ( ! $this->preview_mode && ! $this->is_bot && ! $this->hide_banner && ! ( is_admin() && $pagenow === 'widgets.php' && isset( $_GET['legacy-widget-preview'] ) ) ) {
 			// init cookie compliance
 			if ( Cookie_Notice()->get_status() === 'active' ) {
-				add_action( 'send_headers', array( $this, 'add_compliance_http_header' ) );
-				add_action( 'wp_head', array( $this, 'add_cookie_compliance' ), 0 );
+				add_action( 'send_headers', [ $this, 'add_compliance_http_header' ] );
+				add_action( 'wp_head', [ $this, 'add_cookie_compliance' ], 0 );
+
+				// contact form 7 5.1+ recaptcha v3 compatibility
+				if ( class_exists( 'WPCF7' ) && class_exists( 'WPCF7_RECAPTCHA' ) && defined( 'WPCF7_VERSION' ) && version_compare( WPCF7_VERSION, '5.1', '>=' ) ) {
+					$service = WPCF7_RECAPTCHA::get_instance();
+
+					if ( $service->is_active() )
+						add_action( 'wp_enqueue_scripts', [ $this, 'contact_form_7_recaptcha' ], 21 );
+				}
 			// init cookie notice
 			} else {
 				// actions
-				add_action( 'wp_enqueue_scripts', array( $this, 'wp_enqueue_notice_scripts' ) );
-				add_filter( 'script_loader_tag', array( $this, 'wp_enqueue_script_async' ), 10, 3 );
-				add_action( 'wp_head', array( $this, 'wp_print_header_scripts' ) );
-				add_action( 'wp_print_footer_scripts', array( $this, 'wp_print_footer_scripts' ) );
-				add_action( 'wp_footer', array( $this, 'add_cookie_notice' ), 1000 );
+				add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_notice_scripts' ] );
+				add_filter( 'script_loader_tag', [ $this, 'wp_enqueue_script_async' ], 10, 3 );
+				add_action( 'wp_head', [ $this, 'wp_print_header_scripts' ] );
+				add_action( 'wp_print_footer_scripts', [ $this, 'wp_print_footer_scripts' ] );
+				add_action( 'wp_footer', [ $this, 'add_cookie_notice' ], 1000 );
 
 				// filters
-				add_filter( 'body_class', array( $this, 'change_body_class' ) );
+				add_filter( 'body_class', [ $this, 'change_body_class' ] );
 			}
 		}
+	}
+
+	/**
+	 * Replace original recaptcha script from Contact Form 7.
+	 *
+	 * @return void
+	 */
+	public function contact_form_7_recaptcha() {
+		// deregister original script
+		wp_deregister_script( 'wpcf7-recaptcha' );
+
+		$service = WPCF7_RECAPTCHA::get_instance();
+
+		// register new script
+		wp_register_script(
+			'wpcf7-recaptcha',
+			COOKIE_NOTICE_URL . '/includes/modules/contact-form-7/recaptcha.js',
+			[
+				'google-recaptcha',
+				'wp-polyfill',
+			],
+			WPCF7_VERSION,
+			true
+		);
+
+		wp_enqueue_script( 'wpcf7-recaptcha' );
+
+		wp_localize_script(
+			'wpcf7-recaptcha',
+			'wpcf7_recaptcha',
+			[
+				'sitekey'	=> $service->get_sitekey(),
+				'actions'	=> apply_filters(
+					'wpcf7_recaptcha_actions',
+					[
+						'homepage'		=> 'homepage',
+						'contactform'	=> 'contactform'
+					]
+				)
+			]
+		);
 	}
 
 	/**
@@ -176,7 +225,7 @@ class Cookie_Notice_Frontend {
 		}
 
 		// get cookie container args
-		$options = apply_filters( 'cn_cookie_notice_args', array(
+		$options = apply_filters( 'cn_cookie_notice_args', [
 			'position'				=> $cn->options['general']['position'],
 			'css_class'				=> $cn->options['general']['css_class'],
 			'button_class'			=> 'cn-button',
@@ -193,10 +242,10 @@ class Cookie_Notice_Frontend {
 			'link_target'			=> $cn->options['general']['link_target'],
 			'link_position'			=> $cn->options['general']['link_position'],
 			'aria_label'			=> 'Cookie Notice'
-		) );
+		] );
 
 		// check legacy parameters
-		$options = $cn->check_legacy_params( $options, array( 'refuse_opt', 'see_more' ) );
+		$options = $cn->check_legacy_params( $options, [ 'refuse_opt', 'see_more' ] );
 
 		if ( $options['see_more'] === true )
 			$options['message_text'] = do_shortcode( wp_kses_post( $options['message_text'] ) );
@@ -240,7 +289,7 @@ class Cookie_Notice_Frontend {
 		// get main instance
 		$cn = Cookie_Notice();
 
-		wp_enqueue_script( 'cookie-notice-front', plugins_url( '../js/front' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.js', __FILE__ ), array(), $cn->defaults['version'], isset( $cn->options['general']['script_placement'] ) && $cn->options['general']['script_placement'] === 'footer' );
+		wp_enqueue_script( 'cookie-notice-front', COOKIE_NOTICE_URL . '/js/front' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.js', [], $cn->defaults['version'], isset( $cn->options['general']['script_placement'] ) && $cn->options['general']['script_placement'] === 'footer' );
 
 		wp_localize_script(
 			'cookie-notice-front',
@@ -266,7 +315,7 @@ class Cookie_Notice_Frontend {
 			]
 		);
 
-		wp_enqueue_style( 'cookie-notice-front', plugins_url( '../css/front' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.css', __FILE__ ) );
+		wp_enqueue_style( 'cookie-notice-front', COOKIE_NOTICE_URL . '/css/front' . ( ! ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '.min' : '' ) . '.css' );
 	}
 
 	/**

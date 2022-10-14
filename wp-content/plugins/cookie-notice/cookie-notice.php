@@ -2,7 +2,7 @@
 /*
 Plugin Name: Cookie Notice & Compliance for GDPR / CCPA
 Description: Cookie Notice allows you to you elegantly inform users that your site uses cookies and helps you comply with GDPR, CCPA and other data privacy laws.
-Version: 2.4.0
+Version: 2.4.1
 Author: Hu-manity.co
 Author URI: https://hu-manity.co/
 Plugin URI: https://hu-manity.co/
@@ -29,7 +29,7 @@ if ( ! defined( 'ABSPATH' ) )
  * Cookie Notice class.
  *
  * @class Cookie_Notice
- * @version	2.4.0
+ * @version	2.4.1
  */
 class Cookie_Notice {
 
@@ -106,7 +106,7 @@ class Cookie_Notice {
 			'update_delay_date'		=> 0,
 			'update_threshold_date'	=> 0
 		],
-		'version'	=> '2.4.0'
+		'version'	=> '2.4.1'
 	];
 
 	/**
@@ -154,6 +154,10 @@ class Cookie_Notice {
 	 * @return void
 	 */
 	public function __construct() {
+		// define plugin constants
+		$this->define_constants();
+
+		// activation hooks
 		register_activation_hook( __FILE__, [ $this, 'activation' ] );
 		register_deactivation_hook( __FILE__, [ $this, 'deactivation' ] );
 
@@ -206,6 +210,15 @@ class Cookie_Notice {
 		add_action( 'admin_footer', [ $this, 'deactivate_plugin_template' ] );
 		add_action( 'wp_ajax_cn_dismiss_notice', [ $this, 'ajax_dismiss_admin_notice' ] );
 		add_action( 'wp_ajax_cn-deactivate-plugin', [ $this, 'deactivate_plugin' ] );
+	}
+
+	/**
+	 * Setup plugin constants.
+	 *
+	 * @return void
+	 */
+	private function define_constants() {
+		define( 'COOKIE_NOTICE_URL', plugins_url( '', __FILE__ ) );
 	}
 
 	/**
@@ -919,9 +932,9 @@ class Cookie_Notice {
 		if ( $page === 'plugins.php' ) {
 			add_thickbox();
 
-			wp_enqueue_script( 'cookie-notice-admin-plugins', plugins_url( '/js/admin-plugins.js', __FILE__ ), [ 'jquery' ], $this->defaults['version'] );
+			wp_enqueue_script( 'cookie-notice-admin-plugins', COOKIE_NOTICE_URL . '/js/admin-plugins.js', [ 'jquery' ], $this->defaults['version'] );
 
-			wp_enqueue_style( 'cookie-notice-admin-plugins', plugins_url( '/css/admin-plugins.css', __FILE__ ), [], $this->defaults['version'] );
+			wp_enqueue_style( 'cookie-notice-admin-plugins', COOKIE_NOTICE_URL . '/css/admin-plugins.css', [], $this->defaults['version'] );
 
 			wp_localize_script(
 				'cookie-notice-admin-plugins',
@@ -935,7 +948,7 @@ class Cookie_Notice {
 
 		// notice js and css
 		wp_enqueue_script(
-			'cookie-notice-admin-notice', plugins_url( '/js/admin-notice.js', __FILE__ ), [ 'jquery' ], Cookie_Notice()->defaults['version']
+			'cookie-notice-admin-notice', COOKIE_NOTICE_URL . '/js/admin-notice.js', [ 'jquery' ], Cookie_Notice()->defaults['version']
 		);
 
 		wp_localize_script(
@@ -949,7 +962,7 @@ class Cookie_Notice {
 		);
 
 		wp_enqueue_style(
-			'cookie-notice-admin-notice', plugins_url( '/css/admin-notice.css', __FILE__ ), [], Cookie_Notice()->defaults['version']
+			'cookie-notice-admin-notice', COOKIE_NOTICE_URL . '/css/admin-notice.css', [], Cookie_Notice()->defaults['version']
 		);
 	}
 

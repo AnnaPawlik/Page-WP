@@ -15,7 +15,7 @@
         yoast_breadcrumb();
       }
       ?>
-      <h2><?= __('Blog', 'wppage');?></h2>
+      <h2><?= __('Blog', 'wppage'); ?></h2>
     </div>
   </section><!-- End Breadcrumbs -->
 
@@ -35,6 +35,7 @@
           wp_reset_query(); ?>
 
           <div class="blog__pagination">
+            <?php wp_pagenavi(); ?>
           </div>
 
         </div><!-- End blog entries list -->

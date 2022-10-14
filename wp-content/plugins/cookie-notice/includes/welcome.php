@@ -60,14 +60,14 @@ class Cookie_Notice_Welcome {
 
 		wp_enqueue_style( 'dashicons' );
 
-		wp_enqueue_style( 'cookie-notice-modaal', plugins_url( '../assets/modaal/css/modaal.min.css', __FILE__ ), [], $cn->defaults['version'] );
-		wp_enqueue_script( 'cookie-notice-modaal', plugins_url( '../assets/modaal/js/modaal.min.js', __FILE__ ), [], $cn->defaults['version'] );
+		wp_enqueue_style( 'cookie-notice-modaal', COOKIE_NOTICE_URL . '/assets/modaal/css/modaal.min.css', [], $cn->defaults['version'] );
+		wp_enqueue_script( 'cookie-notice-modaal', COOKIE_NOTICE_URL . '/assets/modaal/js/modaal.min.js', [], $cn->defaults['version'] );
 
-		wp_enqueue_style( 'cookie-notice-spectrum', plugins_url( '../assets/spectrum/spectrum.min.css', __FILE__ ), [], $cn->defaults['version'] );
-		wp_enqueue_style( 'cookie-notice-microtip', plugins_url( '../assets/microtip/microtip.min.css', __FILE__ ), [], $cn->defaults['version'] );
+		wp_enqueue_style( 'cookie-notice-spectrum', COOKIE_NOTICE_URL . '/assets/spectrum/spectrum.min.css', [], $cn->defaults['version'] );
+		wp_enqueue_style( 'cookie-notice-microtip', COOKIE_NOTICE_URL . '/assets/microtip/microtip.min.css', [], $cn->defaults['version'] );
 
-		wp_enqueue_script( 'cookie-notice-spectrum', plugins_url( '../assets/spectrum/spectrum.min.js', __FILE__ ), [], $cn->defaults['version'] );
-		wp_enqueue_script( 'cookie-notice-welcome', plugins_url( '../js/admin-welcome.js', __FILE__ ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-progressbar' ), $cn->defaults['version'] );
+		wp_enqueue_script( 'cookie-notice-spectrum', COOKIE_NOTICE_URL . '/assets/spectrum/spectrum.min.js', [], $cn->defaults['version'] );
+		wp_enqueue_script( 'cookie-notice-welcome', COOKIE_NOTICE_URL . '/js/admin-welcome.js', [ 'jquery', 'jquery-ui-core', 'jquery-ui-progressbar' ], $cn->defaults['version'] );
 		wp_enqueue_script( 'cookie-notice-braintree-client', 'https://js.braintreegateway.com/web/3.71.0/js/client.min.js', [], null, false );
 		wp_enqueue_script( 'cookie-notice-braintree-hostedfields', 'https://js.braintreegateway.com/web/3.71.0/js/hosted-fields.min.js', [], null, false );
 		wp_enqueue_script( 'cookie-notice-braintree-paypal', 'https://js.braintreegateway.com/web/3.71.0/js/paypal-checkout.min.js', [], null, false );
@@ -75,7 +75,7 @@ class Cookie_Notice_Welcome {
 		// check network
 		$network = $cn->is_network_admin();
 
-		$js_args = array(
+		$js_args = [
 			'ajaxURL'			=> admin_url( 'admin-ajax.php' ),
 			'network'			=> (int) $network,
 			'nonce'				=> wp_create_nonce( 'cookie-notice-welcome' ),
@@ -92,7 +92,7 @@ class Cookie_Notice_Welcome {
 			'compliancePassed'	=> __( '<em>Compliance Passed!</em>Congratulations. Your website meets minimum viable compliance.', 'cookie-notice' ),
 			'licensesAvailable'	=> __( 'available', 'cookie-notice' ),
 			'invalidFields'		=> __( 'Please fill all the required fields.', 'cookie-notice' )
-		);
+		];
 
 		// delete the show modal transient
 		if ( $network )
@@ -106,7 +106,7 @@ class Cookie_Notice_Welcome {
 			$js_args
 		);
 
-		wp_enqueue_style( 'cookie-notice-welcome', plugins_url( '../css/admin-welcome.css', __FILE__ ) );
+		wp_enqueue_style( 'cookie-notice-welcome', COOKIE_NOTICE_URL . '/css/admin-welcome.css' );
 	}
 
 	/**
@@ -144,10 +144,10 @@ class Cookie_Notice_Welcome {
 		if ( ( isset( $_GET['action'] ) && 'upgrade-plugin' == $_GET['action'] ) && ( isset( $_GET['plugin'] ) && strstr( $_GET['plugin'], 'cookie-notice.php' ) ) )
 			return;
 
-		add_action( 'admin_enqueue_scripts', array( $this, 'admin_enqueue_scripts' ) );
-		add_action( 'admin_footer', array( $this, 'admin_footer' ) );
+		add_action( 'admin_enqueue_scripts', [ $this, 'admin_enqueue_scripts' ] );
+		add_action( 'admin_footer', [ $this, 'admin_footer' ] );
 
-		// add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
+		// add_filter( 'admin_body_class', [ $this, 'admin_body_class' ] );
 	}
 
 	/**
@@ -183,8 +183,8 @@ class Cookie_Notice_Welcome {
 		if ( ! current_user_can( 'install_plugins' ) )
 			wp_die( _( 'You do not have permission to access this page.', 'cookie-notice' ) );
 
-		$sidebars = array( 'about', 'login', 'register', 'configure', 'select_plan', 'success' );
-		$steps = array( 1, 2, 3, 4 );
+		$sidebars = [ 'about', 'login', 'register', 'configure', 'select_plan', 'success' ];
+		$steps = [ 1, 2, 3, 4 ];
 		$screens = array_merge( $sidebars, $steps );
 		$screen = ! empty( $screen ) && in_array( $screen, $screens ) ? $screen : ( isset( $_REQUEST['screen'] ) && in_array( $_REQUEST['screen'], $screens ) ? $_REQUEST['screen'] : '' );
 
@@ -215,7 +215,7 @@ class Cookie_Notice_Welcome {
 								<p><b>' . __( 'Cookie Compliance is a free web application that enables websites to take a proactive approach to data protection and consent laws.', 'cookie-notice' ) . '</b></p>
 								<div class="cn-hero-image">
 									<div class="cn-flex-item">
-										<img src="' . plugins_url( '../img/screen-compliance.png', __FILE__ ) . '" alt="Cookie Notice dashboard" />
+										<img src="' . COOKIE_NOTICE_URL . '/img/screen-compliance.png" alt="Cookie Notice dashboard" />
 									</div>
 								</div>
 								<p>' . __( 'It is the first solution to offer <b>intentional consent</b>, a new consent framework that incorporates the latest guidelines from over 100+ countries, and emerging standards from leading international organizations like the IEEE.', 'cookie-notice' ) . '</p>
@@ -263,10 +263,10 @@ class Cookie_Notice_Welcome {
 							<div class="cn-hero-image">
 								<div class="cn-flex-item">
 									<div class="cn-logo-container">
-										<img src="' . plugins_url( '../img/cookie-notice-logo-dark.png', __FILE__ ) . '">
+										<img src="' . COOKIE_NOTICE_URL . '/img/cookie-notice-logo-dark.png">
 										<span class="cn-badge">' . __( 'WP Plugin', 'cookie-notice' ) . '</span>
 									</div>
-									<img src="' . plugins_url( '../img/screen-notice.png', __FILE__ ) . '" alt="Cookie Notice dashboard" />
+									<img src="' . COOKIE_NOTICE_URL . '/img/screen-notice.png" alt="Cookie Notice dashboard" />
 									<ul class="cn-features-list">
 										<li><span>' . __( '<b>Free</b>', 'cookie-notice' ) . '</span></li>
 										<li><span>' . __( 'Customizable notice message', 'cookie-notice' ) . '</span></li>
@@ -279,10 +279,10 @@ class Cookie_Notice_Welcome {
 								</div>
 								<div class="cn-flex-item">
 									<div class="cn-logo-container">
-										<img src="' . plugins_url( '../img/cookie-compliance-logo-dark.png', __FILE__ ) . '">
+										<img src="' . COOKIE_NOTICE_URL . '/img/cookie-compliance-logo-dark.png">
 										<span class="cn-badge">' . __( 'Web App', 'cookie-notice' ) . '</span>
 									</div>
-									<img src="' . plugins_url( '../img/screen-compliance.png', __FILE__ ) . '"alt="Cookie Compliance dashboard" />
+									<img src="' . COOKIE_NOTICE_URL . '/img/screen-compliance.png" alt="Cookie Compliance dashboard" />
 									<ul class="cn-features-list">
 										<li><span>' . __( '<b>Free plan</b>', 'cookie-notice' ) . '</span></li>
 										<li><span>' . __( 'Consent Analytics Dashboard', 'cookie-notice' ) . '</span></li>
@@ -318,6 +318,7 @@ class Cookie_Notice_Welcome {
 											<p class="cn-included"><span class="cn-icon"></span>' . __( 'Consent Analytics Dashboard', 'cookie-notice' ) . '</p>
 											<p class="cn-excluded"><span class="cn-icon"></span>' . __( '<b>1,000</b> visits / month', 'cookie-notice' ) . '</p>
 											<p class="cn-excluded"><span class="cn-icon"></span>' . __( '<b>30 days</b> consent storage', 'cookie-notice' ) . '</p>
+											<p class="cn-excluded"><span class="cn-icon"></span>' . __( '<b>Geolocation</b> support', 'cookie-notice' ) . '</p>
 											<p class="cn-excluded"><span class="cn-icon"></span>' . __( '<b>1 additional</b> language', 'cookie-notice' ) . '</p>
 											<p class="cn-excluded"><span class="cn-icon"></span>' . __( '<b>Basic</b> Support', 'cookie-notice' ) . '</p>
 										</div>
@@ -347,8 +348,9 @@ class Cookie_Notice_Welcome {
 											<p class="cn-included"><span class="cn-icon"></span>' . __( 'Consent Analytics Dashboard', 'cookie-notice' ) . '</p>
 											<p class="cn-included"><span class="cn-icon"></span>' . __( '<b>Unlimited</b> visits', 'cookie-notice' ) . '</p>
 											<p class="cn-included"><span class="cn-icon"></span>' . __( '<b>Lifetime</b> consent storage', 'cookie-notice' ) . '</p>
+											<p class="cn-included"><span class="cn-icon"></span>' . __( '<b>Geolocation</b> support', 'cookie-notice' ) . '</p>
 											<p class="cn-included"><span class="cn-icon"></span>' . __( '<b>Unlimited</b> languages', 'cookie-notice' ) . '</p>
-											<p class="cn-included"><span class="cn-icon"></span>' . __( '<b>Premium</b> Support', 'cookie-notice' ) . '</p>
+											<p class="cn-included"><span class="cn-icon"></span>' . __( '<b>Priority</b> Support', 'cookie-notice' ) . '</p>
 										</div>
 										<div class="cn-pricing-footer">
 											<button type="button" class="cn-btn cn-btn-outline">' . __( 'Start Premium', 'cookie-notice' ) . '</button>
@@ -398,7 +400,7 @@ class Cookie_Notice_Welcome {
 					<div class="cn-inner">
 						<div class="cn-header">
 							<div class="cn-top-bar">
-								<div class="cn-logo"><img src="' . plugins_url( '../img/cookie-notice-logo.png', __FILE__ ) . '" alt="Cookie Notice logo" /></div>
+								<div class="cn-logo"><img src="' . COOKIE_NOTICE_URL . '/img/cookie-notice-logo.png" alt="Cookie Notice logo" /></div>
 							</div>
 						</div>
 						<div class="cn-body">
@@ -427,7 +429,7 @@ class Cookie_Notice_Welcome {
 					<div class="cn-inner">
 						<div class="cn-header">
 							<div class="cn-top-bar">
-								<div class="cn-logo"><img src="' . plugins_url( '../img/cookie-notice-logo.png', __FILE__ ) . '" alt="Cookie Notice logo" /></div>
+								<div class="cn-logo"><img src="' . COOKIE_NOTICE_URL . '/img/cookie-notice-logo.png" alt="Cookie Notice logo" /></div>
 							</div>
 						</div>
 						<div class="cn-body">
@@ -488,11 +490,11 @@ class Cookie_Notice_Welcome {
 											<div class="cn-field cn-field-radio-image">
 												<label>' . __( 'Select your preferred display position', 'cookie-notice' ) . '​:</label>
 												<div class="cn-radio-image-wrapper">
-													<label for="cn_position_bottom"><input id="cn_position_bottom" type="radio" name="cn_position" value="bottom" title="' . __( 'Bottom', 'cookie-notice' ) . '" checked><img src="' . plugins_url( '../img/layout-bottom.png', __FILE__ ) . '" width="24" height="24"></label>
-													<label for="cn_position_top"><input id="cn_position_top" type="radio" name="cn_position" value="top" title="' . __( 'Top', 'cookie-notice' ) . '"><img src="' . plugins_url( '../img/layout-top.png', __FILE__ ) . '" width="24" height="24"></label>
-													<label for="cn_position_left"><input id="cn_position_left" type="radio" name="cn_position" value="left" title="' . __( 'Left', 'cookie-notice' ) . '"><img src="' . plugins_url( '../img/layout-left.png', __FILE__ ) . '" width="24" height="24"></label>
-													<label for="cn_position_right"><input id="cn_position_right" type="radio" name="cn_position" value="right" title="' . __( 'Right', 'cookie-notice' ) . '"><img src="' . plugins_url( '../img/layout-right.png', __FILE__ ) . '" width="24" height="24"></label>
-													<label for="cn_position_center"><input id="cn_position_center" type="radio" name="cn_position" value="center" title="' . __( 'Center', 'cookie-notice' ) . '"><img src="' . plugins_url( '../img/layout-center.png', __FILE__ ) . '" width="24" height="24"></label>
+													<label for="cn_position_bottom"><input id="cn_position_bottom" type="radio" name="cn_position" value="bottom" title="' . __( 'Bottom', 'cookie-notice' ) . '" checked><img src="' . COOKIE_NOTICE_URL . '/img/layout-bottom.png" width="24" height="24"></label>
+													<label for="cn_position_top"><input id="cn_position_top" type="radio" name="cn_position" value="top" title="' . __( 'Top', 'cookie-notice' ) . '"><img src="' . COOKIE_NOTICE_URL . '/img/layout-top.png" width="24" height="24"></label>
+													<label for="cn_position_left"><input id="cn_position_left" type="radio" name="cn_position" value="left" title="' . __( 'Left', 'cookie-notice' ) . '"><img src="' . COOKIE_NOTICE_URL . '/img/layout-left.png" width="24" height="24"></label>
+													<label for="cn_position_right"><input id="cn_position_right" type="radio" name="cn_position" value="right" title="' . __( 'Right', 'cookie-notice' ) . '"><img src="' . COOKIE_NOTICE_URL . '/img/layout-right.png" width="24" height="24"></label>
+													<label for="cn_position_center"><input id="cn_position_center" type="radio" name="cn_position" value="center" title="' . __( 'Center', 'cookie-notice' ) . '"><img src="' . COOKIE_NOTICE_URL . '/img/layout-center.png" width="24" height="24"></label>
 												</div>
 											</div>
 											<div class="cn-field cn-fieldset">
@@ -525,7 +527,7 @@ class Cookie_Notice_Welcome {
 					<div class="cn-inner">
 						<div class="cn-header">
 							<div class="cn-top-bar">
-								<div class="cn-logo"><img src="' . plugins_url( '../img/cookie-notice-logo.png', __FILE__ ) . '" alt="Cookie Notice logo" /></div>
+								<div class="cn-logo"><img src="' . COOKIE_NOTICE_URL . '/img/cookie-notice-logo.png" alt="Cookie Notice logo" /></div>
 							</div>
 						</div>
 						<div class="cn-body">
@@ -633,7 +635,7 @@ class Cookie_Notice_Welcome {
 					<div class="cn-inner">
 						<div class="cn-header">
 							<div class="cn-top-bar">
-								<div class="cn-logo"><img src="' . plugins_url( '../img/cookie-notice-logo.png', __FILE__ ) . '" alt="Cookie Notice logo" /></div>
+								<div class="cn-logo"><img src="' . COOKIE_NOTICE_URL . '/img/cookie-notice-logo.png" alt="Cookie Notice logo" /></div>
 							</div>
 						</div>
 						<div class="cn-body">
@@ -745,7 +747,7 @@ class Cookie_Notice_Welcome {
 					<div class="cn-inner">
 						<div class="cn-header">
 							<div class="cn-top-bar">
-								<div class="cn-logo"><img src="' . plugins_url( '../img/cookie-notice-logo.png', __FILE__ ) . '" alt="Cookie Notice logo" /></div>
+								<div class="cn-logo"><img src="' . COOKIE_NOTICE_URL . '/img/cookie-notice-logo.png" alt="Cookie Notice logo" /></div>
 							</div>
 						</div>
 						<div class="cn-body">
