@@ -847,6 +847,54 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_63496d51277a5": {
+                    "key": "layout_63496d51277a5",
+                    "name": "section_services",
+                    "label": "Services",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_63496d6a277a6",
+                            "label": "Nagłówek",
+                            "name": "services_heading",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        },
+                        {
+                            "key": "field_63496d7e277a7",
+                            "label": "Tytuł",
+                            "name": "services_title",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": "",
+                            "maxlength": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_633410cbcc809": {
                     "key": "layout_633410cbcc809",
                     "name": "section_slider",
@@ -1114,5 +1162,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1664358900
+    "modified": 1665756563
 }

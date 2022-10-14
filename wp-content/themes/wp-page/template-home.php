@@ -20,8 +20,8 @@
 					get_template_part('resources/templates/sections/home/count-component');
 				elseif (get_row_layout() == 'section_features') :
 					get_template_part('resources/templates/sections/home/features-component');
-				elseif (get_row_layout() == 'section_team') :
-					get_template_part('resources/templates/sections/home/team-component');
+				elseif (get_row_layout() == 'section_services') :
+					get_template_part('resources/templates/sections/home/services-component');
 				elseif (get_row_layout() == 'section_slider') :
 					get_template_part('resources/templates/sections/home/slider-component');
 				elseif (get_row_layout() == 'section_contact') :
