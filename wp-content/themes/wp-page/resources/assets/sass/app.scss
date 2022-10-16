@@ -1,0 +1,55 @@
+@import "settings/variables";
+
+// bootstrap
+@import "../node_modules/bootstrap/scss/bootstrap-reboot";
+
+@import "settings/bootstrap-override";
+@import "../node_modules/bootstrap/scss/bootstrap-grid";
+@import "../node_modules/bootstrap/scss/mixins/deprecate";
+@import "../node_modules/bootstrap/scss/mixins/hover";
+@import "../node_modules/bootstrap/scss/mixins/text-emphasis";
+@import "../node_modules/bootstrap/scss/mixins/text-hide";
+@import "../node_modules/bootstrap/scss/mixins/text-truncate";
+@import "../node_modules/bootstrap/scss/mixins/reset-text";
+@import "../node_modules/bootstrap/scss/utilities/text";
+
+// js plugins
+@import "../node_modules/slick-slider/slick/slick.scss";
+@import "../node_modules/aos/src/sass/aos.scss";
+
+// Fonts
+// =================================================
+@import "fonts/fonts";
+
+// Generic
+// =================================================
+@import "generic/mixins";
+@import "generic/general";
+@import "generic/typography";
+
+// Partials
+// =================================================
+@import "partials/header";
+@import "partials/footer";
+
+// Components
+// =================================================
+@import "components/global/form-component";
+@import "components/global/inputs-component";
+@import "components/global/hero-component";
+@import "components/global/buttons-component";
+@import "components/global/overlay-component";
+@import "components/global/breadcrumbs";
+
+//Pages
+@import "components/pages/home/about-section";
+@import "components/pages/home/values-section";
+@import "components/pages/home/count-section";
+@import "components/pages/home/features-section";
+@import "components/pages/home/contact-section";
+@import "components/pages/home/team-section";
+@import "components/pages/home/slider-section";
+@import "components/pages/home/services-section";
+@import "components/pages/blog/blog";
+@import "components/pages/blog/blog-sidebar";
+@import "components/pages/blog/pagination";

@@ -1,0 +1,151 @@
+.footer {
+  background: $bgfooter;
+  padding: 0 0 30px;
+
+  @include fontSize(14);
+
+  &__newsletter {
+    padding: 50px 0;
+    background: $bgfooter;
+    border-top: 1px solid $border;
+
+    h4 {
+      margin: 0 0 10px;
+      padding: 0;
+      color: $primarycolor;
+    }
+  }
+
+  &__top {
+    background: white url("../images/pictures/footer-bg.png") no-repeat right top;
+    background-size: contain;
+    border-top: 1px solid $border;
+    border-bottom: 1px solid $border;
+    padding: 60px 0 30px;
+
+    @include media-breakpoint-down(lg) {
+      background-position: center bottom;
+    }
+
+    &-info {
+      margin-bottom: 30px;
+
+      .logo {
+        line-height: 0;
+        margin-bottom: 15px;
+
+        img {
+          max-height: 40px;
+          margin-right: 6px;
+        }
+
+        span {
+          font-weight: 700;
+          letter-spacing: 1px;
+          color: $primarycolor;
+          font-family: $secondaryfont;
+          margin-top: 3px;
+
+          @include fontSize(30);
+        }
+      }
+
+      p {
+        margin-bottom: 0;
+        font-family: $primaryfont;
+      }
+
+      .social-links a {
+        display: inline-block;
+        color: rgba(1, 41, 112, 0.5);
+        line-height: 0;
+        margin-right: 10px;
+        transition: 0.3s;
+
+        @include fontSize(24);
+
+        &:hover {
+          color: $primarycolor;
+        }
+      }
+    }
+
+    h4 {
+      font-weight: 600;
+      color: $primarycolor;
+      text-transform: uppercase;
+      position: relative;
+      padding-bottom: 12px;
+
+      @include fontSize(16);
+    }
+
+    .footer__links {
+      margin-bottom: 30px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          padding: 10px 15px;
+          display: flex;
+          align-items: center;
+          position: relative;
+
+          &:first-child {
+            padding-top: 0;
+          }
+
+          a {
+            color: $blue;
+            transition: 0.3s;
+            display: inline-block;
+            line-height: 1;
+
+            &:hover {
+              color: $linkhover;
+            }
+          }
+        }
+      }
+    }
+
+    .footer__contact p {
+      line-height: 26px;
+
+      a {
+        color: $bodycolor;
+      }
+    }
+  }
+
+  .copyright {
+    text-align: center;
+    padding-top: 30px;
+    color: $primarycolor;
+  }
+
+  .credits {
+    padding-top: 10px;
+    text-align: center;
+    color: $primarycolor;
+
+    @include fontSize(13);
+  }
+
+  .menu-item::before {
+    content: "\f054";
+    color: $light;
+    position: absolute;
+    left: 0;
+    font-family: "Font Awesome 5 Free";
+    display: inline-block;
+    padding-right: 3px;
+    vertical-align: middle;
+    font-weight: 900;
+
+    @include fontSize(12);
+  }
+}

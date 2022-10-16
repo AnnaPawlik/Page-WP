@@ -1,0 +1,68 @@
+.features {
+  &__box {
+    padding: 24px 20px;
+    box-shadow: 0 0 30px rgba(1, 41, 112, 0.08);
+    transition: 0.3s;
+    height: 100%;
+
+    &:hover i {
+      background: $btnhover;
+      color: $white;
+    }
+
+    h3 {
+      color: $primarycolor;
+      font-weight: 700;
+      margin: 0;
+
+      @include fontSize(18);
+    }
+
+    i {
+      line-height: 0;
+      background: $bgcheck;
+      padding: 14px 8px;
+      margin-right: 10px;
+      border-radius: 3px;
+      transition: 0.3s;
+
+      @include fontSize(14);
+    }
+  }
+
+  &__icons {
+    margin-top: 120px;
+
+    h3 {
+      color: $primarycolor;
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 20px;
+      text-align: center;
+
+      @include fontSize(32);
+
+      @include media-breakpoint-down(md) {
+        @include fontSize(28);
+      }
+    }
+
+    &-content .icon-box {
+      display: flex;
+
+      h4 {
+        font-weight: 700;
+        margin: 0 0 10px;
+        color: $primarycolor;
+
+        @include fontSize(20);
+      }
+
+      p {
+        color: $grey;
+
+        @include fontSize(20);
+      }
+    }
+  }
+}

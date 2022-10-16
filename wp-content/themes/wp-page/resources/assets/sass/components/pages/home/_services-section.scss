@@ -1,0 +1,39 @@
+.services {
+  &__box {
+    box-shadow: 0 0 30px rgba(1, 41, 112, 0.08);
+    height: 100%;
+    padding: 60px 30px;
+    text-align: center;
+    transition: 0.3s;
+    border-radius: 5px;
+
+    h3 {
+      color: $bodycolor;
+      font-weight: 700;
+
+      @include fontSize(26);
+    }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      padding: 8px 20px;
+
+      @include fontSize(16);
+    }
+
+    &--blue {
+      border-bottom: 3px solid $secondarycolor;
+    }
+
+    &--orange {
+      border-bottom: 3px solid $orange;
+    }
+
+    &--green {
+      border-bottom: 3px solid $green;
+    }
+  }
+}

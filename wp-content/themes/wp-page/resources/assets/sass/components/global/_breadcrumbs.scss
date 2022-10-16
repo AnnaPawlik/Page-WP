@@ -1,0 +1,19 @@
+.breadcrumbs {
+  padding: 15px 0;
+  background: $primarycolor;
+  min-height: 40px;
+  color: $white;
+
+  h2 {
+    font-weight: 500;
+    color: $white;
+
+    @include fontSize(28);
+  }
+
+  span,
+  a {
+    color: $white;
+    transition: 0.3s;
+  }
+}

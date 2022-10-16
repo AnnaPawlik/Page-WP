@@ -1,0 +1,66 @@
+.team {
+  background: $white;
+  padding: 60px 0;
+
+  &__member {
+    overflow: hidden;
+    text-align: center;
+    border-radius: 5px;
+    background: $white;
+    box-shadow: 0 0 30px rgba(1, 41, 112, 0.08);
+    transition: 0.3s;
+
+    &:hover {
+      transform: scale(1.08);
+      box-shadow: 0 0 30px rgba(1, 41, 112, 0.1);
+    }
+
+    &-img {
+      position: relative;
+      overflow: hidden;
+
+      &::after {
+        position: absolute;
+        content: "";
+        left: 0;
+        bottom: 0;
+        height: 100%;
+        width: 100%;
+        background: url("../images/icons/team-shape.svg") no-repeat center bottom;
+        background-size: contain;
+        z-index: 1;
+      }
+    }
+
+    &-info {
+      padding: 10px 15px 20px;
+
+      h4 {
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: $primarycolor;
+
+        @include fontSize(20);
+      }
+
+      span {
+        display: block;
+        font-weight: 400;
+        color: $lightgrey;
+      }
+
+      p {
+        font-style: italic;
+        padding-top: 15px;
+        color: #5e5e5e;
+
+        @include lineHeight(26);
+      }
+
+      span,
+      p {
+        @include fontSize(14);
+      }
+    }
+  }
+}

@@ -1,0 +1,48 @@
+h1,
+h3,
+h4 {
+  font-weight: 700;
+}
+
+h1 {
+  @include fontSize(48);
+
+  @include media-breakpoint-down(md) {
+    @include fontSize(32);
+  }
+}
+
+h2 {
+  color: $primarycolor;
+  font-family: $secondaryfont;
+
+  @include fontSize(26);
+
+  @include media-breakpoint-down(md) {
+    @include fontSize(24);
+  }
+}
+
+h3 {
+  @include fontSize(14);
+}
+
+h4 {
+  @include fontSize(24);
+}
+
+p {
+  font-weight: 400;
+
+  @include fontSize(14);
+  @include lineHeight(24);
+}
+
+a {
+  font-weight: 500;
+  color: $primarycolor;
+  font-family: $primaryfont;
+
+  @include fontSize(14);
+  @include lineHeight(18);
+}

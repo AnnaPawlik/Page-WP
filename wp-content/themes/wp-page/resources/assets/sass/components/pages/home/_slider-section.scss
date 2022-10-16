@@ -1,0 +1,43 @@
+.clients {
+  div {
+    text-align: center;
+  }
+
+  img {
+    opacity: 0.5;
+    transition: 0.3s;
+    max-width: 116px;
+
+    @include media-breakpoint-down(sm) {
+      max-width: 150px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.slick-dots {
+  position: relative;
+  display: flex;
+  margin: 60px auto;
+  justify-content: center;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.slick-dots button {
+  width: 12px;
+  height: 12px;
+  background-color: $white;
+  opacity: 1;
+  border: 1px solid $btnhover;
+  border-radius: 50%;
+  color: transparent;
+  margin: 0 5px;
+}
+
+.slick-active button {
+  background-color: $btnhover;
+}

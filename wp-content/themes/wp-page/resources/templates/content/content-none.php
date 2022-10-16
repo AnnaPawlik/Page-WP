@@ -1,0 +1,1 @@
+<p class="mx-auto"><?= __('Brak wyników wyszukiwania', 'wppage'); ?></p>
